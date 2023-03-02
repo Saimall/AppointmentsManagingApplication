@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "db:create:test": "NODE_ENV=test npx sequelize-cli db:create",
     "start": "node index.js",
-    "test": "jest",
+    "pretest": "NODE_ENV=test npx sequelize-cli db:drop && NODE_ENV=test npx sequelize-cli db:create",
+    "test": "jest --detectOpenHandles",
     "prepare": "husky install"
   },
   "lint-staged": {
