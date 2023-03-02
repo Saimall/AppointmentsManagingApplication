@@ -185,13 +185,14 @@ app.post(
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
     if (request.body.starttime.length == 0) {
-      request.flash("error", "Date can not be empty!!");
+      request.flash("error", "Time can not be empty!!");
       return response.redirect("/list");
     }
     if (request.body.title.length == 0) {
       request.flash("error", "title can not be empty");
       return response.redirect("/list");
     }
+
     const event = await appointments.findone(
       request.body.starttime,
       request.body.endtime
