@@ -15,7 +15,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 app.set("views", path.join(__dirname, "views"));
 app.use(flash());
-const { users } = require("./models");
+const { appointments, users } = require("./models");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
@@ -163,16 +163,60 @@ app.get(
   connectEnsureLogin.ensureLoggedIn(),
   async function (request, response) {
     try {
+      const loggedInUser = request.user.id;
+      const allevents = await appointments.getevents(loggedInUser);
       if (request.accepts("html")) {
         response.render("list", {
           title: "Appointment Managing Application",
+          allevents,
           csrfToken: request.csrfToken(),
         });
       } else {
-        response.json({});
+        response.json({ allevents });
       }
     } catch (err) {
       console.log(err);
+    }
+  }
+);
+
+app.post(
+  "/lists",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    if (request.body.starttime.length == 0) {
+      request.flash("error", "Date can not be empty!!");
+      return response.redirect("/list");
+    }
+    if (request.body.title.length == 0) {
+      request.flash("error", "title can not be empty");
+      return response.redirect("/list");
+    }
+    const event = await appointments.findone(
+      request.body.starttime,
+      request.body.endtime
+    );
+    console.log(event);
+    if (event) {
+      request.flash(
+        "error",
+        "Ooopss!! seems like the selected time slot is already booked!!"
+      );
+      return response.redirect("/list");
+    }
+    console.log("creating new event name", request.body);
+    try {
+      // eslint-disable-next-line no-unused-vars
+      await appointments.addevent({
+        title: request.body.title,
+        start: request.body.starttime,
+        end: request.body.endtime,
+        userId: request.user.id,
+      });
+      return response.redirect("/list");
+    } catch (error) {
+      console.log(error);
+      return response.status(422).json(error);
     }
   }
 );
