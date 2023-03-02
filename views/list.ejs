@@ -13,24 +13,6 @@
       var token = document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content");
-    //   const updateTodo = (id) => {
-    //     const bool = document.querySelector(`#checkbox-${id}`).checked;
-    //     console.log(bool);
-    //     fetch(`/todos/${id}`, {
-    //       method: "put",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify({
-    //         _csrf: token,
-    //         completed: bool,
-    //       }),
-    //     })
-    //       .then((res) => {
-    //         if (res.ok) {
-    //           window.location.reload();
-    //         }
-    //       })
-    //       .catch((err) => console.erroe(err));
-    //   };
     const deleteevent = (id) => {
         fetch(`/lists/${id}`, {
           method: "delete",

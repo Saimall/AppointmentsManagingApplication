@@ -23,12 +23,12 @@
               <label
                 class="ml-2 text-sm text-gray-600 curser-pointer"
               >
-               <span><%=i+1%>) <%= data[i].title %>   <%=data[i].start%> to <%=data[i].end%></span>
+               <span><%=i+1%>)<b> <%= data[i].title %>   <%=data[i].start%> to <%=data[i].end%></b><a href="/lists/<%=data[i].id%>/modify" class="text-white bg-gray-600 hover:bg-gray-800 font-medium rounded  rounded px-2 ml-4 h-4">   Edit details</a> </span>
               </label>
 
               <a
                 href="#"
-                class="trash-icon ml-2"
+                class="trash-icon ml-2 h-4"
                 onclick="deleteevent(<%= data[i].id %>)"
               >
                 <svg

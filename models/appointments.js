@@ -49,6 +49,14 @@ module.exports = (sequelize, DataTypes) => {
         },
       });
     }
+    static findevent(userId, id) {
+      return this.findOne({
+        where: {
+          userId,
+          id,
+        },
+      });
+    }
 
     static async remove(id, userId) {
       return this.destroy({
@@ -57,6 +65,19 @@ module.exports = (sequelize, DataTypes) => {
           userId,
         },
       });
+    }
+
+    static async modifyevent(eventname, id) {
+      return this.update(
+        {
+          title: eventname,
+        },
+        {
+          where: {
+            id: id,
+          },
+        }
+      );
     }
   }
 

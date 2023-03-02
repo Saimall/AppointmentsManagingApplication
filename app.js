@@ -235,4 +235,32 @@ app.delete(
   }
 );
 
+app.get(
+  "/lists/:id/modify",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    const userId = request.user.id;
+    const eventId = request.params.id;
+    const event = await appointments.findevent(userId, eventId);
+    response.render("modifyevent", {
+      eventname: event.title,
+      id: event.id,
+      csrf: request.csrfToken(),
+    });
+  }
+);
+
+app.post(
+  "/lists/:id/modify",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    try {
+      await appointments.modifyevent(request.body.eventname, request.params.id);
+      response.redirect("/list");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 module.exports = app;
