@@ -172,7 +172,7 @@ app.get(
           csrfToken: request.csrfToken(),
         });
       } else {
-        response.json({ allevents });
+        return response.json({ allevents });
       }
     } catch (err) {
       console.log(err);

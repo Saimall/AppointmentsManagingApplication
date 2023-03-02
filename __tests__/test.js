@@ -73,4 +73,36 @@ describe("Appointment Manager test suite ", () => {
     });
     expect(response.statusCode).toBe(302); //http status code
   });
+
+  test("testing Deleting appointment functionality", async () => {
+    const agent = request.agent(server);
+    await login(agent, "reddy123@gmail.com", "123456789");
+    let res = await agent.get("/list");
+    let csrfToken = extractCsrfToken(res);
+
+    await agent.post("/lists").send({
+      title: "Buy milk",
+      starttime: "4:45",
+      endtime: "5:45",
+      _csrf: csrfToken,
+    });
+
+    const groupedeventsResponse = await agent
+      .get("/list")
+      .set("Accept", "application/json");
+    const parsedGroupedeventsResponse = JSON.parse(groupedeventsResponse.text);
+    const eventCount = parsedGroupedeventsResponse.allevents.length;
+    const event = parsedGroupedeventsResponse.allevents[eventCount - 1];
+
+    res = await agent.get("/list");
+    csrfToken = extractCsrfToken(res);
+
+    const deleteevent = await agent
+      .delete(`/lists/${event.id}`)
+      .send({ _csrf: csrfToken });
+
+    const response = JSON.parse(deleteevent.text);
+
+    expect(response.success).toBe(true);
+  });
 });
