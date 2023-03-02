@@ -3,13 +3,14 @@ const request = require("supertest");
 var cheerio = require("cheerio");
 const db = require("../models/index");
 const app = require("../app");
-//const todo = require("../models/todo");
+// const { TIME } = require("sequelize");
+// const { time } = require("console");
 let server, agent;
 function extractCsrfToken(res) {
   var $ = cheerio.load(res.text);
   return $("[name=_csrf]").val();
 }
-// //const login = async (agent, username, password) => {
+// const login = async (agent, username, password) => {
 //   let res = await agent.get("/login");
 //   let csrfToken = extractCsrfToken(res);
 //   res = await agent.post("/session").send({
@@ -37,7 +38,7 @@ describe("Appointment Manager test suite ", () => {
       firstname: "Test",
       lastname: "User A",
       email: "reddy123@gmail.com",
-      password: "12345",
+      password: "123456789",
       _csrf: csrfToken,
     });
     expect(res.statusCode).toBe(302);

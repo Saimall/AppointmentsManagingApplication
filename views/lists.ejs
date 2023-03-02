@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events lists</title>
+    <script>
+        
+    </script>
 </head>
 <body>
     <div>
@@ -20,13 +23,13 @@
               <label
                 class="ml-2 text-sm text-gray-600 curser-pointer"
               >
-               <span><%=i+1%>) <%= data[i].title %>   <%=data[i].start%> - <%=data[i].end%></span>
+               <span><%=i+1%>) <%= data[i].title %>   <%=data[i].start%> to <%=data[i].end%></span>
               </label>
 
               <a
                 href="#"
-                class="hidden trash-icon ml-2"
-                onclick="deleteTodo(<%= data[i].id %>)"
+                class="trash-icon ml-2"
+                onclick="deleteevent(<%= data[i].id %>)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -49,6 +49,15 @@ module.exports = (sequelize, DataTypes) => {
         },
       });
     }
+
+    static async remove(id, userId) {
+      return this.destroy({
+        where: {
+          id,
+          userId,
+        },
+      });
+    }
   }
 
   appointments.init(

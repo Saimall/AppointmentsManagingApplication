@@ -10,9 +10,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="./css/style.css" rel="stylesheet" />
     <script>
-    //   var token = document
-    //     .querySelector('meta[name="csrf-token"]')
-    //     .getAttribute("content");
+      var token = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
     //   const updateTodo = (id) => {
     //     const bool = document.querySelector(`#checkbox-${id}`).checked;
     //     console.log(bool);
@@ -31,21 +31,21 @@
     //       })
     //       .catch((err) => console.erroe(err));
     //   };
-    //   function deleteTodo(id) {
-    //     fetch(`/todos/${id}`, {
-    //       method: "delete",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify({
-    //         _csrf: token,
-    //       }),
-    //     })
-    //       .then((res) => {
-    //         if (res.ok) {
-    //           window.location.reload();
-    //         }
-    //       })
-    //       .catch((err) => console.erroe(err));
-    //   }
+    const deleteevent = (id) => {
+        fetch(`/lists/${id}`, {
+          method: "delete",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            _csrf: token,
+          }),
+        })
+          .then((res) => {
+            if (res.ok) {
+              window.location.reload();
+            }
+          })
+          .catch((err) => console.erroe(err));
+      }
     </script>
   </head>
   <body>

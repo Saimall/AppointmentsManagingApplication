@@ -221,4 +221,18 @@ app.post(
   }
 );
 
+app.delete(
+  "/lists/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    console.log("delete a todo with ID:", request.params.id);
+    try {
+      await appointments.remove(request.params.id, request.user.id);
+      return response.json({ success: true });
+    } catch (error) {
+      return response.status(422).json(error);
+    }
+  }
+);
+
 module.exports = app;
