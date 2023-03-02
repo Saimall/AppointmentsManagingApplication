@@ -243,11 +243,22 @@ app.get(
     const userId = request.user.id;
     const eventId = request.params.id;
     const event = await appointments.findevent(userId, eventId);
-    response.render("modifyevent", {
-      eventname: event.title,
-      id: event.id,
-      csrf: request.csrfToken(),
-    });
+    const loggedInUser = request.user.id;
+    const allevents = await appointments.getevents(loggedInUser);
+    try {
+      if (request.accepts("html")) {
+        response.render("modifyevent", {
+          eventname: event.title,
+          id: event.id,
+          csrf: request.csrfToken(),
+        });
+      } else {
+        response.json({ allevents });
+      }
+    } catch (error) {
+      console.log(error);
+      return response.status(422).json(error);
+    }
   }
 );
 
@@ -257,7 +268,8 @@ app.post(
   async (request, response) => {
     try {
       await appointments.modifyevent(request.body.eventname, request.params.id);
-      response.redirect("/list");
+      request.flash("success", "Updated sucessfully!!");
+      return response.redirect("/list");
     } catch (error) {
       console.log(error);
     }

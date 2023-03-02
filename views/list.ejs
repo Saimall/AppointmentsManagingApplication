@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -30,23 +30,24 @@
       }
     </script>
   </head>
-  <body>
+  <body style="background-color: #E4F9F5;">
     <div class="grid grid-cols-6">
-      <div class="col-start-3 col-span-2">
+      <div class="col-start-3 col-span-2" >
         <%- include("header.ejs") %> 
-        <a href="/signout" > Signout</a>
+        <a href="/signout" class="text-white bg-green-600 hover:bg-green-800 font-medium rounded px-5 py-2 pt-2 mt-3 mr-8"> Signout</a>
         <form action="/lists" method="post">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-          <div class="flex gap-4 py-4 ">
-            <div class="flex-auto">
-              <input
+          <div class="py-3 mt-3 ">
+            <label for="firstname" style="color: #11999E;"><em>Appointment Name: </em></label>
+            <input
                 type="string"
                 name="title"
                 placeholder="Event name"
                 class="border border-gray-300 rounded text-gray-900 w-full p-2 text-sm"
               />
-            </div>
-            <div class="flex-auto">
+         </div>
+         <div class="py-3">
+          <label for="firstname" style="color: #11999E;"><em>Start Time: </em></label>
               <input
                 type="time"
                 name="starttime"
@@ -54,32 +55,42 @@
                 class="border border-gray-300 rounded text-gray-900 w-full p-2 text-sm leading-4"
               />
             </div>
-            <div class="flex-auto">
+            <div class="py-3">
+              <label for="firstname" style="color: #11999E;"><em>End Time: </em></label>
                 <input
                   type="time"
                   name="endtime"
                   placeholder="ending time"
                   class="border border-gray-300 rounded text-gray-900 w-full p-2 text-sm leading-4"
                 />
-              </div>
+              </div><br>
             <div class="flex-none">
               <button
                 type="submit"
-                class="bg-green-600 text-white px-5 py-1.5 rounded font-medium mr-2 mb-2"
+                class="bg-green-600 text-white px-5 py-1.5 rounded font-medium mr-2 mb-0"
               >
                 Add
               </button>
-            </div>
-          </div>
         </form>
-        <%- include('lists.ejs', { data: allevents}) %> 
-        <% if(messages && messages.error && messages.error.length > 0)  { %>
-          <% for(var i=0; i<messages.error.length; i++) { %>
-               <div class="bg-red-300 text-red-900 p-2 rounded-lg shadow">
-                  <li> <%= messages.error[i] %></li>
-               </div>
+        <div class="py-3 mt-2 ">
+          <%- include('lists.ejs', { data: allevents}) %> 
+          <% if(messages && messages.error && messages.error.length > 0)  { %>
+            <% for(var i=0; i<messages.error.length; i++) { %>
+                 <div class="bg-red-300 text-red-900 p-2 rounded-lg shadow">
+                    <li> <%= messages.error[i] %></li>
+                 </div>
+            <% } %>
           <% } %>
-        <% } %>
+          <% if(messages && messages.success && messages.success.length > 0)  { %>
+            <% for(var i=0; i<messages.success.length; i++) { %>
+                 <div class="bg-green-300 text-green-900 p-4 rounded-lg shadow">
+                    <li> <%= messages.success[i] %></li>
+                 </div>
+            <% } %>
+          <% } %>
+        </div> 
+      </div>
+    </div>
       </div>
     </div>
   </body>
