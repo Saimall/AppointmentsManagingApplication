@@ -203,6 +203,10 @@ app.post(
         "error",
         "Ooopss!! seems like the selected time slot is already booked!!"
       );
+      request.flash(
+        "error",
+        "Kindly delete the Overlapping appointments and save this appointment!!"
+      );
       return response.redirect("/list");
     }
     console.log("creating new event name", request.body);
@@ -214,6 +218,7 @@ app.post(
         end: request.body.endtime,
         userId: request.user.id,
       });
+      request.flash("success", "Appointment added sucessfully!!");
       return response.redirect("/list");
     } catch (error) {
       console.log(error);
@@ -229,6 +234,7 @@ app.delete(
     console.log("delete a todo with ID:", request.params.id);
     try {
       await appointments.remove(request.params.id, request.user.id);
+      request.flash("success", "Appointment Deleted sucessfully!!");
       return response.json({ success: true });
     } catch (error) {
       return response.status(422).json(error);
