@@ -71,7 +71,7 @@ describe("Appointment Manager test suite ", () => {
       endtime: "5:45",
       _csrf: csrfToken,
     });
-    expect(response.statusCode).toBe(302); //http status code
+    expect(response.statusCode).toBe(302);
   });
 
   test("testing Deleting appointment functionality", async () => {
@@ -104,5 +104,37 @@ describe("Appointment Manager test suite ", () => {
     const response = JSON.parse(deleteevent.text);
 
     expect(response.success).toBe(true);
+  });
+
+  test("testing Deleting appointment functionality", async () => {
+    const agent = request.agent(server);
+    await login(agent, "reddy123@gmail.com", "123456789");
+    let res = await agent.get("/list");
+    let csrfToken = extractCsrfToken(res);
+
+    await agent.post("/lists").send({
+      title: "Buy milk",
+      starttime: "4:45",
+      endtime: "5:45",
+      _csrf: csrfToken,
+    });
+
+    const groupedeventsResponse = await agent
+      .get("/list")
+      .set("Accept", "application/json");
+    const parsedGroupedeventsResponse = JSON.parse(groupedeventsResponse.text);
+    const eventCount = parsedGroupedeventsResponse.allevents.length;
+    const event = parsedGroupedeventsResponse.allevents[eventCount - 1];
+
+    res = await agent.get(`/lists/${event.id}/modify`);
+    csrfToken = extractCsrfToken(res);
+
+    const modifyevent = await agent.post(`/lists/${event.id}/modify`).send({
+      title: "milk",
+      starttime: "4:55",
+      endtime: "5:65",
+      _csrf: csrfToken,
+    });
+    expect(modifyevent.statusCode).toBe(302);
   });
 });
