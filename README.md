@@ -1,22 +1,13 @@
 This is a Appointment Managing Application built using Node.js which allows
-
 Users to signup and add their appointment name and along with timeslots avaliable
-
-  
 
 User can add only one appointment in the specified time slot.
 
-  
-
 If User want to add more than one appointment in the same timeslot the application will give
-
 option for user to "Delete the appointment avaliable in that slot and add new appointment"
-
-  
 
 Users can login using thier credentials to view their appointments and respective time slots
 
-  
 
 # **DEMO SCREEN SHOTS**:
 ---
