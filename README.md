@@ -12,7 +12,7 @@ Users can login using thier credentials to view their appointments and respectiv
 
 ---
 
-> **Home Page:** ><img width="500" height="300" alt="image" src="https://user-images.githubusercontent.com/113211361/222783721-2f89b15e-81ee-47b2-9adc-08890b6240aa.png">
+> **Home Page:** >  <img width="500" height="300" alt="image" src="https://user-images.githubusercontent.com/113211361/222783721-2f89b15e-81ee-47b2-9adc-08890b6240aa.png">
 
 > **signup page:** > <img width="500" height="300" alt="image" src="https://user-images.githubusercontent.com/113211361/222784091-e5806294-4888-4668-8bd3-6c0ac73bc206.png">
 
