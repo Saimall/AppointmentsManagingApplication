@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>Edit Appointment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body style="background-color: #E4F9F5;">
+    <div class="flex flex-col justify-center items-center p-4">
+      <div class="flex flex-col justify-center md:w-2/5 w-full">
+        <div class="pt-6">
+          <b>
+            <h1 class="text-medium" align="center" style="color: #11999E;"><strong>Add New Appointment and Delete  Existing Appointment</strong></h1>
+          </b>
+          <div class="mt-5">
+            <form
+              method="post"
+              action="/lists/<%=eventid%>/add/delete">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+              <div class="flex flex-col w-full" style="color: #11999E">
+                <label for="appointmentname" style="color: #11999E;"><em>Existing Appointment Name: </em></label>
+                <input
+                  type="text"
+                  name="title"
+                  value="<%= title %>"
+                  placeholder="Appointmentname"
+                  class="border-2 border-gray-200 p-2 rounded-lg"
+                />
+              </div>
+              <div class="flex flex-col w-full pt-3" style="color: #11999E">
+                <label for="starttime" style="color: #11999E;"><em>Existing Start Time: </em></label>
+                <input
+                  type="text"
+                  name="starttime"
+                  value="<%=starttime%>"
+                  placeholder="description"
+                  class="border-2 border-gray-200 p-2 rounded-lg"
+                />
+              </div>
+              <div class="flex flex-col w-full pt-3" style="color: #66BFBF;">
+                <label for="endtime" style="color: #11999E;"><em>Existing End Time: </em></label>
+                <input
+                  type="text"
+                  name="endtime"
+                  value="<%=endtime%>"
+                  placeholder="description"
+                  class="border-2 border-gray-200 p-2 rounded-lg"
+                />
+              </div>
+              <div class="flex justify-center items-center w-full gap-4">
+                <button
+                  type="submit"
+                  class="text-white bg-green-600 hover:bg-green-800 font-medium rounded px-3 py-1 mt-2"
+                >
+                  Add & Delete
+                </button>
+                <a href="/list" type="reset"
+                  class="text-white bg-red-600 hover:bg-red-800 font-medium rounded px-3 py-1 mt-2">
+                  
+                  Cancel
+                </a>
+            </div>
+              </div>
+            </form>
+        </div>
+        <% if(messages && messages.error && messages.error.length > 0)  { %>
+          <% for(var i=0; i<messages.error.length; i++) { %>
+                 <div class="bg-red-300 text-red-900 p-2 rounded-lg shadow">
+                  <center>
+                  <li> <%= messages.error[i] %></li>
+                </center>
+                 </div>
+          <% } %>
+        <% } %>      
+    </div>
+  </div>
+</div>
+</body>
+</html>

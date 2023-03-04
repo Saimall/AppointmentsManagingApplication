@@ -203,11 +203,7 @@ app.post(
         "error",
         "Ooopss!! seems like the selected time slot is already booked!!"
       );
-      request.flash(
-        "error",
-        "Kindly delete the Overlapping appointments and save this appointment!!"
-      );
-      return response.redirect("/list");
+      return response.redirect(`/replace/${event.id}`);
     }
     console.log("creating new event name", request.body);
     try {
@@ -224,6 +220,23 @@ app.post(
       console.log(error);
       return response.status(422).json(error);
     }
+  }
+);
+
+app.get(
+  "/replace/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    const userId = request.user.id;
+    const eventId = request.params.id;
+    const event = await appointments.findevent(userId, eventId);
+    return response.render("replace", {
+      eventid: event.id,
+      title: event.title,
+      starttime: event.start,
+      endtime: event.end,
+      csrfToken: request.csrfToken(),
+    });
   }
 );
 
@@ -275,6 +288,27 @@ app.post(
     try {
       await appointments.modifyevent(request.body.eventname, request.params.id);
       request.flash("success", "Updated sucessfully!!");
+      return response.redirect("/list");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+app.post(
+  "/lists/:id/add/delete",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    try {
+      const userId = request.user.id;
+      await appointments.remove(request.params.id, request.user.id);
+      await appointments.addevent({
+        title: request.body.title,
+        start: request.body.starttime,
+        end: request.body.endtime,
+        userId: userId,
+      });
+      request.flash("success", "Updated successfully!!");
       return response.redirect("/list");
     } catch (error) {
       console.log(error);
