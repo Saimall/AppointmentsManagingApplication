@@ -55,7 +55,10 @@ Users can login using thier credentials to view their appointments and respectiv
 
   
 
-## Demo videos:
+## Live Application URL:
+
+
+https://appointmentsmanagingapplication.onrender.com
 
   
 
