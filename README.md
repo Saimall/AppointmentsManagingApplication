@@ -20,7 +20,9 @@ Users can login using thier credentials to view their appointments and respectiv
 
 > **Appointment managing page:** > <img width="500" height="300" alt="image" src="https://user-images.githubusercontent.com/113211361/222784670-915b6d00-8755-4600-a8f8-18da2e251536.png">
 
-> **Appointment detailes update page:** > <img width="500" height="200" alt="image" src="https://user-images.githubusercontent.com/113211361/222784968-ef7db1e1-139a-4d0b-82a6-cc225d5e7df1.png">
+> **Appointment detailes update page:** > <img width="500" height="300" alt="image" src="https://user-images.githubusercontent.com/113211361/222784968-ef7db1e1-139a-4d0b-82a6-cc225d5e7df1.png">
+
+> **Add New Appointment and Delete Existing Appointment page:** > <img width="500" height="300" alt="image" src="https://user-images.githubusercontent.com/113211361/222784968-ef7db1e1-139a-4d0b-82a6-cc225d5e7df1.png">
 
 ---
 
