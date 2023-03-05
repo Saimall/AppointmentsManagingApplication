@@ -11,7 +11,6 @@ Users can login using thier credentials to view their appointments and respectiv
 # **DEMO SCREEN SHOTS**:
 
 ---
-
 > **Home Page:**  
 > <img  width="500"  height="300"  alt="image"  src="https://user-images.githubusercontent.com/113211361/222783721-2f89b15e-81ee-47b2-9adc-08890b6240aa.png">
 
