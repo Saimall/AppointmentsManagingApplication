@@ -38,7 +38,7 @@ Users can login using thier credentials to view their appointments and respectiv
   
 
 > **Add New Appointment and Delete Existing Appointment page:** 
-<img  width="500"  height="300"  alt="image"  src="https://user-images.githubusercontent.com/113211361/222784968-ef7db1e1-139a-4d0b-82a6-cc225d5e7df1.png">
+<img width="500" height="300" alt="image" src="https://user-images.githubusercontent.com/113211361/222967697-b75ceab3-de40-4100-8862-e67097b1b3cb.png">
 
   
 
