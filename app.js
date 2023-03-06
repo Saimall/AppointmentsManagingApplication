@@ -205,6 +205,10 @@ app.post(
       );
       return response.redirect(`/replace/${event.id}`);
     }
+    if (request.body.starttime > request.body.endtime) {
+      request.flash("error", "Oopss!! Start time must be less than End time");
+      return response.redirect("/list");
+    }
     console.log("creating new event name", request.body);
     try {
       // eslint-disable-next-line no-unused-vars
@@ -301,6 +305,10 @@ app.post(
   async (request, response) => {
     try {
       const userId = request.user.id;
+      if (request.body.starttime > request.body.endtime) {
+        request.flash("error", "Oopss!! Start time must be less than End time");
+        return response.redirect(`/replace/${request.params.id}`);
+      }
       await appointments.remove(request.params.id, request.user.id);
       await appointments.addevent({
         title: request.body.title,
