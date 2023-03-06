@@ -83,9 +83,30 @@ module.exports = (sequelize, DataTypes) => {
 
   appointments.init(
     {
-      title: DataTypes.STRING,
-      start: DataTypes.TIME,
-      end: DataTypes.TIME,
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          notNull: true,
+        },
+      },
+      start: {
+        type: DataTypes.TIME,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          notNull: true,
+        },
+      },
+      end: {
+        type: DataTypes.TIME,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          notNull: true,
+        },
+      },
     },
     {
       sequelize,
