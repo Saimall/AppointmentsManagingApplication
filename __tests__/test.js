@@ -106,7 +106,7 @@ describe("Appointment Manager test suite ", () => {
     expect(response.success).toBe(true);
   });
 
-  test("testing Deleting appointment functionality", async () => {
+  test("testing modify appointment functionality", async () => {
     const agent = request.agent(server);
     await login(agent, "reddy123@gmail.com", "123456789");
     let res = await agent.get("/list");
