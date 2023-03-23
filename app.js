@@ -31,6 +31,7 @@ app.use(
     },
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function (request, response, next) {
@@ -188,6 +189,7 @@ app.post(
       request.flash("error", "Time can not be empty!!");
       return response.redirect("/list");
     }
+
     if (request.body.title.length == 0) {
       request.flash("error", "title can not be empty");
       return response.redirect("/list");
@@ -197,7 +199,7 @@ app.post(
       request.body.starttime,
       request.body.endtime
     );
-    console.log(event);
+
     if (event) {
       request.flash(
         "error",
@@ -207,7 +209,17 @@ app.post(
     }
     if (request.body.starttime > request.body.endtime) {
       request.flash("error", "Oopss!! Start time must be less than End time");
-      return response.redirect("/list");
+      return response.redirect(`/list/${event.id}`);
+    }
+    const allevents = await appointments.getevents(request.user.id);
+    for (let i = 0; i < allevents.length; i++) {
+      if (
+        allevents[i].start < request.body.starttime &&
+        request.body.starttime < allevents[i].end
+      ) {
+        request.flash("error", "Appointmemt overlapps");
+        return response.redirect(`/list`);
+      }
     }
     console.log("creating new event name", request.body);
     try {
@@ -224,6 +236,23 @@ app.post(
       console.log(error);
       return response.status(422).json(error);
     }
+  }
+);
+
+app.get(
+  "/list/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    const userId = request.user.id;
+    const eventId = request.params.id;
+    const event = await appointments.findevent(userId, eventId);
+    return response.render("list", {
+      eventid: event.id,
+      title: event.title,
+      starttime: event.start,
+      endtime: event.end,
+      csrfToken: request.csrfToken(),
+    });
   }
 );
 
